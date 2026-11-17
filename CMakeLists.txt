@@ -11,6 +11,7 @@ add_subdirectory(lib/sdl_image)
 add_subdirectory(lib/sdl_mixer)
 
 add_executable(${PROJECT_NAME}
+	src/game.c
 	src/graphics.c
 	src/main.c
 	src/input.c
