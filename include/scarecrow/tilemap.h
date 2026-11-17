@@ -14,13 +14,11 @@ typedef enum scarecrow_tilemap_tile_type
     SCARECROW_TILEMAP_TILE_TYPE_PLATFORM,
     SCARECROW_TILEMAP_TILE_TYPE_LADDER,
     SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM,
-    SCARECROW_TILEMAP_TILE_TYPE_THORN,
 } scarecrow_tilemap_tile_type;
 
 bool scarecrow_tilemap_is_tile_solid(scarecrow_tilemap_tile_type value);
 bool scarecrow_tilemap_is_tile_platform(scarecrow_tilemap_tile_type value);
 bool scarecrow_tilemap_is_tile_climbable(scarecrow_tilemap_tile_type value);
-bool scarecrow_tilemap_is_tile_hazard(scarecrow_tilemap_tile_type value);
 
 uint8_t scarecrow_tilemap_get_tile_index(const uint8_t x, const uint8_t y);
 bool scarecrow_tilemap_is_collide_at_tile(const int8_t x, const int8_t y, const uint8_t width, const uint8_t height, const int8_t motion_y);

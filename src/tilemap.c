@@ -48,18 +48,6 @@ bool scarecrow_tilemap_is_tile_climbable(scarecrow_tilemap_tile_type value)
     }
 }
 
-bool scarecrow_tilemap_is_tile_hazard(scarecrow_tilemap_tile_type value)
-{
-    switch (value)
-    {
-    case SCARECROW_TILEMAP_TILE_TYPE_THORN:
-        return true;
-
-    default:
-        return false;
-    }
-}
-
 uint8_t scarecrow_tilemap_get_tile_index(const uint8_t x, const uint8_t y)
 {
     return scarecrow_mathematics_flatten_2d_index(x, y, SCARECROW_CONSTANTS_WORLD_CHUNK_WIDTH);
@@ -221,20 +209,6 @@ static void scarecrow_tilemap_draw_scalable_platform(SDL_Renderer* renderer, con
     SDL_RenderFillRect(renderer, &tile_rect);
 }
 
-static void scarecrow_tilemap_draw_thorn(SDL_Renderer* renderer, const uint8_t x, const uint8_t y)
-{
-    const SDL_FRect tile_rect =
-    {
-        (float)(x * SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH),
-        (float)(y * SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT),
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH,
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT
-    };
-
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &tile_rect);
-}
-
 void scarecrow_tilemap_draw(SDL_Renderer* renderer)
 {
     for (size_t y = 0; y < SCARECROW_CONSTANTS_WORLD_CHUNK_HEIGHT; ++y)
@@ -266,10 +240,6 @@ void scarecrow_tilemap_draw(SDL_Renderer* renderer)
 
             case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
                 scarecrow_tilemap_draw_scalable_platform(renderer, x, y);
-                break;
-
-            case SCARECROW_TILEMAP_TILE_TYPE_THORN:
-                scarecrow_tilemap_draw_thorn(renderer, x, y);
                 break;
 
             default:
