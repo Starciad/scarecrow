@@ -13,8 +13,8 @@ bool scarecrow_tilemap_is_tile_solid(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_SOLID:
-    case SCARECROW_TILEMAP_TILE_DOOR:
+    case SCARECROW_TILEMAP_TILE_TYPE_SOLID:
+    case SCARECROW_TILEMAP_TILE_TYPE_DOOR:
         return true;
 
     default:
@@ -26,8 +26,8 @@ bool scarecrow_tilemap_is_tile_platform(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_PLATFORM:
-    case SCARECROW_TILEMAP_TILE_SCALABLE_PLATFORM:
+    case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM:
+    case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
         return true;
 
     default:
@@ -39,8 +39,8 @@ bool scarecrow_tilemap_is_tile_climbable(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_LADDER:
-    case SCARECROW_TILEMAP_TILE_SCALABLE_PLATFORM:
+    case SCARECROW_TILEMAP_TILE_TYPE_LADDER:
+    case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
         return true;
 
     default:
@@ -52,7 +52,7 @@ bool scarecrow_tilemap_is_tile_hazard(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_THORN:
+    case SCARECROW_TILEMAP_TILE_TYPE_THORN:
         return true;
 
     default:
@@ -138,7 +138,7 @@ void scarecrow_tilemap_clear(void)
     {
         for (uint8_t tile_x = 0; tile_x < SCARECROW_CONSTANTS_WORLD_CHUNK_WIDTH; ++tile_x)
         {
-            scarecrow_tilemap[scarecrow_tilemap_get_tile_index(tile_x, tile_y)] = SCARECROW_TILEMAP_TILE_NONE;
+            scarecrow_tilemap[scarecrow_tilemap_get_tile_index(tile_x, tile_y)] = SCARECROW_TILEMAP_TILE_TYPE_NONE;
         }
     }
 }
@@ -245,27 +245,30 @@ void scarecrow_tilemap_draw(SDL_Renderer* renderer)
 
             switch (type)
             {
-            case SCARECROW_TILEMAP_TILE_SOLID:
+            case SCARECROW_TILEMAP_TILE_TYPE_NONE:
+                break;
+
+            case SCARECROW_TILEMAP_TILE_TYPE_SOLID:
                 scarecrow_tilemap_draw_solid(renderer, x, y);
                 break;
 
-            case SCARECROW_TILEMAP_TILE_DOOR:
+            case SCARECROW_TILEMAP_TILE_TYPE_DOOR:
                 scarecrow_tilemap_draw_door(renderer, x, y);
                 break;
 
-            case SCARECROW_TILEMAP_TILE_PLATFORM:
+            case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM:
                 scarecrow_tilemap_draw_platform(renderer, x, y);
                 break;
 
-            case SCARECROW_TILEMAP_TILE_LADDER:
+            case SCARECROW_TILEMAP_TILE_TYPE_LADDER:
                 scarecrow_tilemap_draw_ladder(renderer, x, y);
                 break;
 
-            case SCARECROW_TILEMAP_TILE_SCALABLE_PLATFORM:
+            case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
                 scarecrow_tilemap_draw_scalable_platform(renderer, x, y);
                 break;
 
-            case SCARECROW_TILEMAP_TILE_THORN:
+            case SCARECROW_TILEMAP_TILE_TYPE_THORN:
                 scarecrow_tilemap_draw_thorn(renderer, x, y);
                 break;
 
