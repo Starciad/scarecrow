@@ -15,14 +15,14 @@ typedef enum scarecrow_transition_phase
     SCARECROW_TRANSITION_PHASE_FADE_IN,
 } scarecrow_transition_phase;
 
-static float scarecrow_transition_destination_x;
-static float scarecrow_transition_destination_y;
-static float scarecrow_transition_elapsed_time;
-static float scarecrow_transition_render_x;
-static float scarecrow_transition_render_y;
-static float scarecrow_transition_start_x;
-static float scarecrow_transition_start_y;
-static scarecrow_transition_phase scarecrow_transition_current_phase;
+static float scarecrow_transition_destination_x = 0.0f;
+static float scarecrow_transition_destination_y = 0.0f;
+static float scarecrow_transition_elapsed_time = 0.0f;
+static float scarecrow_transition_render_x = 0.0f;
+static float scarecrow_transition_render_y = 0.0f;
+static float scarecrow_transition_start_x = 0.0f;
+static float scarecrow_transition_start_y = 0.0f;
+static scarecrow_transition_phase scarecrow_transition_current_phase = SCARECROW_TRANSITION_PHASE_NONE;
 
 bool scarecrow_transition_is_active(void)
 {

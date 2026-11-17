@@ -15,8 +15,8 @@
 #include "scarecrow/transition.h"
 #include "scarecrow/world.h"
 
-static SDL_Window* _sdl_window = NULL;
-static SDL_Renderer* _sdl_renderer = NULL;
+static SDL_Window* scarecrow_game_window = NULL;
+static SDL_Renderer* scarecrow_game_renderer = NULL;
 
 static bool scarecrow_game_try_initialize(void)
 {
@@ -26,19 +26,19 @@ static bool scarecrow_game_try_initialize(void)
         return false;
     }
 
-    if (!SDL_CreateWindowAndRenderer(SCARECROW_CONSTANTS_GAME_WINDOW_TITLE, SCARECROW_CONSTANTS_GAME_SCREEN_WIDTH, SCARECROW_CONSTANTS_GAME_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE, &_sdl_window, &_sdl_renderer))
+    if (!SDL_CreateWindowAndRenderer(SCARECROW_CONSTANTS_GAME_WINDOW_TITLE, SCARECROW_CONSTANTS_GAME_SCREEN_WIDTH, SCARECROW_CONSTANTS_GAME_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE, &scarecrow_game_window, &scarecrow_game_renderer))
     {
         SDL_Log("Window and Renderer could not be created! SDL error: %s\n", SDL_GetError());
         return false;
     }
 
-    if (!SDL_SetRenderVSync(_sdl_renderer, true))
+    if (!SDL_SetRenderVSync(scarecrow_game_renderer, true))
     {
         SDL_Log("Could not set vsync! SDL error: %s\n", SDL_GetError());
         return false;
     }
 
-    if (!SDL_SetRenderLogicalPresentation(_sdl_renderer, SCARECROW_CONSTANTS_GAME_LOGICAL_WIDTH, SCARECROW_CONSTANTS_GAME_LOGICAL_HEIGHT, SDL_LOGICAL_PRESENTATION_LETTERBOX))
+    if (!SDL_SetRenderLogicalPresentation(scarecrow_game_renderer, SCARECROW_CONSTANTS_GAME_LOGICAL_WIDTH, SCARECROW_CONSTANTS_GAME_LOGICAL_HEIGHT, SDL_LOGICAL_PRESENTATION_LETTERBOX))
     {
         SDL_Log("Could not set logical presentation! SDL error: %s\n", SDL_GetError());
         return false;
@@ -49,7 +49,7 @@ static bool scarecrow_game_try_initialize(void)
 
 static bool scarecrow_game_try_load_content(void)
 {
-    if (!scarecrow_graphics_try_load(_sdl_renderer))
+    if (!scarecrow_graphics_try_load(scarecrow_game_renderer))
     {
         SDL_Log("Failed to load graphics!");
         return false;
@@ -87,14 +87,14 @@ static void scarecrow_game_update(const float delta_time)
 
 static void scarecrow_game_draw(void)
 {
-    SDL_SetRenderDrawColor(_sdl_renderer, 0, 0, 0, 255);
-    SDL_RenderClear(_sdl_renderer);
+    SDL_SetRenderDrawColor(scarecrow_game_renderer, 0, 0, 0, 255);
+    SDL_RenderClear(scarecrow_game_renderer);
 
-    scarecrow_tilemap_draw(_sdl_renderer);
-    scarecrow_transition_draw_overlay(_sdl_renderer);
-    scarecrow_player_draw(_sdl_renderer);
+    scarecrow_tilemap_draw(scarecrow_game_renderer);
+    scarecrow_transition_draw_overlay(scarecrow_game_renderer);
+    scarecrow_player_draw(scarecrow_game_renderer);
 
-    SDL_RenderPresent(_sdl_renderer);
+    SDL_RenderPresent(scarecrow_game_renderer);
 }
 
 static void scarecrow_game_loop(void)
@@ -137,11 +137,11 @@ static void scarecrow_game_close(void)
 {
     scarecrow_graphics_unload();
 
-    SDL_DestroyRenderer(_sdl_renderer);
-    _sdl_renderer = NULL;
+    SDL_DestroyRenderer(scarecrow_game_renderer);
+    scarecrow_game_renderer = NULL;
 
-    SDL_DestroyWindow(_sdl_window);
-    _sdl_window = NULL;
+    SDL_DestroyWindow(scarecrow_game_window);
+    scarecrow_game_window = NULL;
 
     SDL_Quit();
 }

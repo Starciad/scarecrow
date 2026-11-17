@@ -7,7 +7,7 @@
 #include "scarecrow/mathematics.h"
 #include "scarecrow/tilemap.h"
 
-scarecrow_tilemap_tile_type scarecrow_tilemap[SCARECROW_CONSTANTS_WORLD_CHUNK_SIZE] = {0};
+static scarecrow_tilemap_tile_type scarecrow_tilemap[SCARECROW_CONSTANTS_WORLD_CHUNK_SIZE] = {0};
 
 bool scarecrow_tilemap_is_tile_solid(scarecrow_tilemap_tile_type value)
 {

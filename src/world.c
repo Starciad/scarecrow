@@ -1884,8 +1884,8 @@ const scarecrow_world_chunk scarecrow_world_chunks[SCARECROW_CONSTANTS_WORLD_SIZ
     },
 };
 
-uint8_t scarecrow_world_current_chunk_x = 0;
-uint8_t scarecrow_world_current_chunk_y = 0;
+static uint8_t scarecrow_world_current_chunk_x = 0;
+static uint8_t scarecrow_world_current_chunk_y = 0;
 
 uint8_t scarecrow_world_get_current_chunk_x(void)
 {

@@ -4,37 +4,37 @@
 
 #include "scarecrow/constants.h"
 
-static bool scarecrow_input_is_up_started_value;
-static bool scarecrow_input_is_up_pressed_value;
-static bool scarecrow_input_is_up_canceled_value;
+static bool scarecrow_input_is_up_started_value = false;
+static bool scarecrow_input_is_up_pressed_value = false;
+static bool scarecrow_input_is_up_canceled_value = false;
 
-static bool scarecrow_input_is_right_started_value;
-static bool scarecrow_input_is_right_pressed_value;
-static bool scarecrow_input_is_right_canceled_value;
+static bool scarecrow_input_is_right_started_value = false;
+static bool scarecrow_input_is_right_pressed_value = false;
+static bool scarecrow_input_is_right_canceled_value = false;
 
-static bool scarecrow_input_is_down_started_value;
-static bool scarecrow_input_is_down_pressed_value;
-static bool scarecrow_input_is_down_canceled_value;
+static bool scarecrow_input_is_down_started_value = false;
+static bool scarecrow_input_is_down_pressed_value = false;
+static bool scarecrow_input_is_down_canceled_value = false;
 
-static bool scarecrow_input_is_left_started_value;
-static bool scarecrow_input_is_left_pressed_value;
-static bool scarecrow_input_is_left_canceled_value;
+static bool scarecrow_input_is_left_started_value = false;
+static bool scarecrow_input_is_left_pressed_value = false;
+static bool scarecrow_input_is_left_canceled_value = false;
 
-static bool scarecrow_input_is_a_started_value;
-static bool scarecrow_input_is_a_pressed_value;
-static bool scarecrow_input_is_a_canceled_value;
+static bool scarecrow_input_is_a_started_value = false;
+static bool scarecrow_input_is_a_pressed_value = false;
+static bool scarecrow_input_is_a_canceled_value = false;
 
-static bool scarecrow_input_is_b_started_value;
-static bool scarecrow_input_is_b_pressed_value;
-static bool scarecrow_input_is_b_canceled_value;
+static bool scarecrow_input_is_b_started_value = false;
+static bool scarecrow_input_is_b_pressed_value = false;
+static bool scarecrow_input_is_b_canceled_value = false;
 
-static bool scarecrow_input_is_start_started_value;
-static bool scarecrow_input_is_start_pressed_value;
-static bool scarecrow_input_is_start_canceled_value;
+static bool scarecrow_input_is_start_started_value = false;
+static bool scarecrow_input_is_start_pressed_value = false;
+static bool scarecrow_input_is_start_canceled_value = false;
 
-static bool scarecrow_input_is_select_started_value;
-static bool scarecrow_input_is_select_pressed_value;
-static bool scarecrow_input_is_select_canceled_value;
+static bool scarecrow_input_is_select_started_value = false;
+static bool scarecrow_input_is_select_pressed_value = false;
+static bool scarecrow_input_is_select_canceled_value = false;
 
 bool scarecrow_input_is_up_started(void)
 {
