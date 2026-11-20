@@ -34,11 +34,11 @@ bool scarecrow_tilemap_is_tile_solid(scarecrow_tilemap_tile_type value)
         case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_SOUTH:
         case SCARECROW_TILEMAP_TILE_TYPE_STONE_SINGLE:
         case SCARECROW_TILEMAP_TILE_TYPE_BOX_SINGLE:
-        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHWEST:
-        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHEAST:
-        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHWEST:
-        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHEAST:
-        return true;
+        // case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHWEST:
+        // case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHEAST:
+        // case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHWEST:
+        // case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHEAST:
+            return true;
 
         default:
             return false;
