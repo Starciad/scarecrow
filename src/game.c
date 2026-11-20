@@ -11,6 +11,7 @@
 #include "scarecrow/graphics.h"
 #include "scarecrow/input.h"
 #include "scarecrow/player.h"
+#include "scarecrow/scenario.h"
 #include "scarecrow/tilemap.h"
 #include "scarecrow/transition.h"
 #include "scarecrow/world.h"
@@ -90,6 +91,7 @@ static void scarecrow_game_draw(void)
     SDL_SetRenderDrawColor(scarecrow_game_renderer, 0, 0, 0, 255);
     SDL_RenderClear(scarecrow_game_renderer);
 
+    scarecrow_scenario_draw_background(scarecrow_game_renderer);
     scarecrow_tilemap_draw(scarecrow_game_renderer);
     scarecrow_transition_draw_overlay(scarecrow_game_renderer);
     scarecrow_player_draw(scarecrow_game_renderer);

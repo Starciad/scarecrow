@@ -13,10 +13,11 @@ add_subdirectory(lib/sdl_mixer)
 add_executable(${PROJECT_NAME}
 	src/game.c
 	src/graphics.c
-	src/main.c
 	src/input.c
+	src/main.c
 	src/mathematics.c
 	src/player.c
+	src/scenario.c
 	src/tilemap.c
 	src/transition.c
 	src/world.c

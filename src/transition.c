@@ -197,13 +197,7 @@ void scarecrow_transition_draw_overlay(SDL_Renderer* renderer)
 
     darkness = darkness < 0.0f ? 0.0f : darkness > 1.0f ? 1.0f : darkness;
     
-    const SDL_FRect screen_rect =
-    {
-        0.0f,
-        0.0f,
-        (float)SCARECROW_CONSTANTS_GAME_LOGICAL_WIDTH,
-        (float)SCARECROW_CONSTANTS_GAME_LOGICAL_HEIGHT
-    };
+    const SDL_FRect screen_rect = { 0.0f, 0.0f, (float)SCARECROW_CONSTANTS_GAME_LOGICAL_WIDTH, (float)SCARECROW_CONSTANTS_GAME_LOGICAL_HEIGHT };
 
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, (uint8_t)(darkness * 255.0f));
