@@ -13,12 +13,35 @@ bool scarecrow_tilemap_is_tile_solid(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_TYPE_SOLID:
-    case SCARECROW_TILEMAP_TILE_TYPE_DOOR:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_NORTHWEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_NORTH:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_NORTHEAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_WEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_EAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_SOUTHWEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_SOUTH:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_SOUTHEAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_NORTHWEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_NORTHEAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_SOUTHWEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_SOUTHEAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_HORIZONTAL_WEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_HORIZONTAL_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_HORIZONTAL_EAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_NORTH:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_SOUTH:
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_SINGLE:
+        case SCARECROW_TILEMAP_TILE_TYPE_BOX_SINGLE:
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHWEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHEAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHWEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHEAST:
         return true;
 
-    default:
-        return false;
+        default:
+            return false;
     }
 }
 
@@ -26,12 +49,18 @@ bool scarecrow_tilemap_is_tile_platform(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM:
-    case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
-        return true;
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_WEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_EAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_SINGLE:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_WEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_EAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_SINGLE:
+            return true;
 
-    default:
-        return false;
+        default:
+            return false;
     }
 }
 
@@ -39,12 +68,17 @@ bool scarecrow_tilemap_is_tile_climbable(scarecrow_tilemap_tile_type value)
 {
     switch (value)
     {
-    case SCARECROW_TILEMAP_TILE_TYPE_LADDER:
-    case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
-        return true;
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_WEST:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_EAST:
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_SINGLE:
+        case SCARECROW_TILEMAP_TILE_TYPE_LADDER_NORTH:
+        case SCARECROW_TILEMAP_TILE_TYPE_LADDER_CENTER:
+        case SCARECROW_TILEMAP_TILE_TYPE_LADDER_SOUTH:
+            return true;
 
-    default:
-        return false;
+        default:
+            return false;
     }
 }
 
@@ -131,17 +165,213 @@ void scarecrow_tilemap_clear(void)
     }
 }
 
-static void scarecrow_tilemap_draw_solid(SDL_Renderer* renderer, const uint8_t x, const uint8_t y)
+static SDL_FRect scarecrow_tilemap_get_source_rect_for_tile_type(scarecrow_tilemap_tile_type type)
 {
-    const SDL_FRect source_rect =
-    {
-        0,
-        0,
-        16,
-        16,
-    };
+    SDL_FRect source_rect = {0, 0, (float)SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH, (float)SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT};
 
-    const SDL_FRect destination_rect =
+    switch (type)
+    {
+        case SCARECROW_TILEMAP_TILE_TYPE_NONE:
+            source_rect.x = 0.0f;
+            source_rect.y = 0.0f;
+            source_rect.w = 0.0f;
+            source_rect.h = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_NORTHWEST:
+            source_rect.x = 0.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_NORTH:
+            source_rect.x = 16.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_NORTHEAST:
+            source_rect.x = 32.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_WEST:
+            source_rect.x = 0.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_CENTER:
+            source_rect.x = 16.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_EAST:
+            source_rect.x = 32.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_SOUTHWEST:
+            source_rect.x = 0.0f;
+            source_rect.y = 32.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_SOUTH:
+            source_rect.x = 16.0f;
+            source_rect.y = 32.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_SOUTHEAST:
+            source_rect.x = 32.0f;
+            source_rect.y = 32.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_NORTHWEST:
+            source_rect.x = 48.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_NORTHEAST:
+            source_rect.x = 64.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_SOUTHWEST:
+            source_rect.x = 48.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_GRASS_GAP_SOUTHEAST:
+            source_rect.x = 64.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_HORIZONTAL_WEST:
+            source_rect.x = 0.0f;
+            source_rect.y = 48.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_HORIZONTAL_CENTER:
+            source_rect.x = 16.0f;
+            source_rect.y = 48.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_HORIZONTAL_EAST:
+            source_rect.x = 32.0f;
+            source_rect.y = 48.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_NORTH:
+            source_rect.x = 48.0f;
+            source_rect.y = 32.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_CENTER:
+            source_rect.x = 48.0f;
+            source_rect.y = 48.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_VERTICAL_SOUTH:
+            source_rect.x = 48.0f;
+            source_rect.y = 64.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_STONE_SINGLE:
+            source_rect.x = 16.0f;
+            source_rect.y = 64.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_BOX_SINGLE:
+            source_rect.x = 32.0f;
+            source_rect.y = 64.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHWEST:
+            source_rect.x = 80.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_NORTHEAST:
+            source_rect.x = 96.0f;
+            source_rect.y = 0.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHWEST:
+            source_rect.x = 80.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_DOOR_SOUTHEAST:
+            source_rect.x = 96.0f;
+            source_rect.y = 16.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_WEST:
+            source_rect.x = 0.0f;
+            source_rect.y = 96.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_CENTER:
+            source_rect.x = 16.0f;
+            source_rect.y = 96.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_EAST:
+            source_rect.x = 32.0f;
+            source_rect.y = 96.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM_SINGLE:
+            source_rect.x = 48.0f;
+            source_rect.y = 96.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_WEST:
+            source_rect.x = 0.0f;
+            source_rect.y = 80.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_CENTER:
+            source_rect.x = 16.0f;
+            source_rect.y = 80.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_EAST:
+            source_rect.x = 32.0f;
+            source_rect.y = 80.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM_SINGLE:
+            source_rect.x = 48.0f;
+            source_rect.y = 80.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_LADDER_NORTH:
+            source_rect.x = 64.0f;
+            source_rect.y = 32.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_LADDER_CENTER:
+            source_rect.x = 64.0f;
+            source_rect.y = 48.0f;
+            break;
+
+        case SCARECROW_TILEMAP_TILE_TYPE_LADDER_SOUTH:
+            source_rect.x = 64.0f;
+            source_rect.y = 64.0f;
+            break;
+            
+        default:
+            source_rect.x = 0.0f;
+            source_rect.y = 0.0f;
+            source_rect.w = 0.0f;
+            source_rect.h = 0.0f;
+            break;
+    }
+
+    return source_rect;
+}
+
+static SDL_FRect scarecrow_tilemap_get_destination_rect_for_tile(const uint8_t x, const uint8_t y)
+{
+    SDL_FRect destination_rect =
     {
         (float)(x * SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH),
         (float)(y * SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT),
@@ -149,102 +379,24 @@ static void scarecrow_tilemap_draw_solid(SDL_Renderer* renderer, const uint8_t x
         (float)SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT
     };
 
-    SDL_SetRenderDrawColor(renderer, 56, 128, 4, 255);
-    SDL_RenderTexture(renderer, scarecrow_graphics_get_tileset_texture(), &source_rect, &destination_rect);
-}
-
-static void scarecrow_tilemap_draw_door(SDL_Renderer* renderer, const uint8_t x, const uint8_t y)
-{
-    const SDL_FRect tile_rect =
-    {
-        (float)(x * SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH),
-        (float)(y * SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT),
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH,
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT
-    };
-
-    SDL_SetRenderDrawColor(renderer, 100, 255, 150, 255);
-    SDL_RenderFillRect(renderer, &tile_rect);
-}
-
-static void scarecrow_tilemap_draw_platform(SDL_Renderer* renderer, const uint8_t x, const uint8_t y)
-{
-    const SDL_FRect tile_rect =
-    {
-        (float)(x * SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH),
-        (float)(y * SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT),
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH,
-        (float)(SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT / 2.0f)
-    };
-
-    SDL_SetRenderDrawColor(renderer, 165, 42, 42, 255);
-    SDL_RenderFillRect(renderer, &tile_rect);
-}
-
-static void scarecrow_tilemap_draw_ladder(SDL_Renderer* renderer, const uint8_t x, const uint8_t y)
-{
-    const SDL_FRect tile_rect =
-    {
-        (float)(x * SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH),
-        (float)(y * SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT),
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH,
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT
-    };
-
-    SDL_SetRenderDrawColor(renderer, 139, 69, 19, 255);
-    SDL_RenderFillRect(renderer, &tile_rect);
-}
-
-static void scarecrow_tilemap_draw_scalable_platform(SDL_Renderer* renderer, const uint8_t x, const uint8_t y)
-{
-    const SDL_FRect tile_rect =
-    {
-        (float)(x * SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH),
-        (float)(y * SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT),
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_WIDTH,
-        (float)SCARECROW_CONSTANTS_TILEMAP_TILE_HEIGHT
-    };
-
-    SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
-    SDL_RenderFillRect(renderer, &tile_rect);
+    return destination_rect;
 }
 
 void scarecrow_tilemap_draw(SDL_Renderer* renderer)
 {
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
     for (size_t y = 0; y < SCARECROW_CONSTANTS_WORLD_CHUNK_HEIGHT; ++y)
     {
         for (size_t x = 0; x < SCARECROW_CONSTANTS_WORLD_CHUNK_WIDTH; ++x)
         {
+            SDL_Texture* tileset_texture = scarecrow_graphics_get_tileset_texture();
+
             const scarecrow_tilemap_tile_type type = scarecrow_tilemap[scarecrow_tilemap_get_tile_index(x, y)];
+            const SDL_FRect source_rect = scarecrow_tilemap_get_source_rect_for_tile_type(type);
+            const SDL_FRect destination_rect = scarecrow_tilemap_get_destination_rect_for_tile(x, y);
 
-            switch (type)
-            {
-            case SCARECROW_TILEMAP_TILE_TYPE_NONE:
-                break;
-
-            case SCARECROW_TILEMAP_TILE_TYPE_SOLID:
-                scarecrow_tilemap_draw_solid(renderer, x, y);
-                break;
-
-            case SCARECROW_TILEMAP_TILE_TYPE_DOOR:
-                scarecrow_tilemap_draw_door(renderer, x, y);
-                break;
-
-            case SCARECROW_TILEMAP_TILE_TYPE_PLATFORM:
-                scarecrow_tilemap_draw_platform(renderer, x, y);
-                break;
-
-            case SCARECROW_TILEMAP_TILE_TYPE_LADDER:
-                scarecrow_tilemap_draw_ladder(renderer, x, y);
-                break;
-
-            case SCARECROW_TILEMAP_TILE_TYPE_SCALABLE_PLATFORM:
-                scarecrow_tilemap_draw_scalable_platform(renderer, x, y);
-                break;
-
-            default:
-                break;
-            }
+            SDL_RenderTexture(renderer, tileset_texture, &source_rect, &destination_rect);
         }
     }
 }
